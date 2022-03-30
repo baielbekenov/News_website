@@ -19,7 +19,7 @@ class DetailBookView(generic.DetailView):
         return reverse('index')
 
 
-class CreateBookView(generic.CreateView):
+class CreateBookView(generic.ListView):
     template_name = 'generic.html'
     model = News
     context_object_name = 'new'
@@ -27,3 +27,10 @@ class CreateBookView(generic.CreateView):
     def get_success_url(self):
         return reverse('index')
 
+class Elements(generic.ListView):
+    template_name = 'elements.html'
+    model = News
+    context_object_name = 'new'
+
+    def get_success_url(self):
+        return reverse('index')
