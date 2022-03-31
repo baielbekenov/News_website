@@ -40,6 +40,11 @@
 							<li class="active"><a href="index.html">Главное</a></li>
 							<li><a href="{% url 'generic' %}">Категории</a></li>
 							<li><a href="{% url 'elements' %}">Статьи</a></li>
+							<li><a href="accounts/register/">Регистрация</a></li>
+							<li><a href="{% url 'login' %}">Войти</a></li>
+							{% if user.is_authenticated %}
+							<li><a href="#">Добавить новости</a></li>
+							{% endif %}
 						</ul>
 						<ul class="icons">
 							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
@@ -68,80 +73,21 @@
 						{%endfor%}
 
 						<!-- Posts -->
-<!--							<section class="posts">-->
-<!--								<article>-->
-<!--									<header>-->
-<!--										<span class="date">April 24, 2017</span>-->
-<!--										<h2><a href="#">Sed magna<br />-->
-<!--										ipsum faucibus</a></h2>-->
-<!--									</header>-->
-<!--									<a href="#" class="image fit"><img src="{% static 'images/pic02.jpg' %}" alt="" /></a>-->
-<!--									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>-->
-<!--									<ul class="actions special">-->
-<!--										<li><a href="#" class="button">Full Story</a></li>-->
-<!--									</ul>-->
-<!--								</article>-->
-<!--								<article>-->
-<!--									<header>-->
-<!--										<span class="date">April 22, 2017</span>-->
-<!--										<h2><a href="#">Primis eget<br />-->
-<!--										imperdiet lorem</a></h2>-->
-<!--									</header>-->
-<!--									<a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a>-->
-<!--									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>-->
-<!--									<ul class="actions special">-->
-<!--										<li><a href="#" class="button">Full Story</a></li>-->
-<!--									</ul>-->
-<!--								</article>-->
-<!--								<article>-->
-<!--									<header>-->
-<!--										<span class="date">April 18, 2017</span>-->
-<!--										<h2><a href="#">Ante mattis<br />-->
-<!--										interdum dolor</a></h2>-->
-<!--									</header>-->
-<!--									<a href="#" class="image fit"><img src="{% static 'images/pic04.jpg' %}" alt="" /></a>-->
-<!--									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>-->
-<!--									<ul class="actions special">-->
-<!--										<li><a href="#" class="button">Full Story</a></li>-->
-<!--									</ul>-->
-<!--								</article>-->
-<!--								<article>-->
-<!--									<header>-->
-<!--										<span class="date">April 14, 2017</span>-->
-<!--										<h2><a href="#">Tempus sed<br />-->
-<!--										nulla imperdiet</a></h2>-->
-<!--									</header>-->
-<!--									<a href="#" class="image fit"><img src="{% static 'images/pic05.jpg' %}" alt="" /></a>-->
-<!--									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>-->
-<!--									<ul class="actions special">-->
-<!--										<li><a href="#" class="button">Full Story</a></li>-->
-<!--									</ul>-->
-<!--								</article>-->
-<!--								<article>-->
-<!--									<header>-->
-<!--										<span class="date">April 11, 2017</span>-->
-<!--										<h2><a href="#">Odio magna<br />-->
-<!--										sed consectetur</a></h2>-->
-<!--									</header>-->
-<!--									<a href="#" class="image fit"><img src="{% static 'images/pic06.jpg' %}}" alt="" /></a>-->
-<!--									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>-->
-<!--									<ul class="actions special">-->
-<!--										<li><a href="#" class="button">Full Story</a></li>-->
-<!--									</ul>-->
-<!--								</article>-->
-<!--								<article>-->
-<!--									<header>-->
-<!--										<span class="date">April 7, 2017</span>-->
-<!--										<h2><a href="#">Augue lorem<br />-->
-<!--										primis vestibulum</a></h2>-->
-<!--									</header>-->
-<!--									<a href="#" class="image fit"><img src="{% static 'images/pic07.jpg' %}" alt="" /></a>-->
-<!--									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>-->
-<!--									<ul class="actions special">-->
-<!--										<li><a href="#" class="button">Full Story</a></li>-->
-<!--									</ul>-->
-<!--								</article>-->
-<!--							</section>-->
+							<section class="posts">
+								{%for pos in posts%}
+								<article>
+									<header>
+										<span class="date">{{pos.created_at}}</span>
+										<h2><a href="#">{{pos.name}}<br /></a></h2>
+									</header>
+									<a href="#" class="image fit"><img src="{{pos.photo.url}}" alt="" /></a>
+									<p>{{pos.little_content}}</p>
+									<ul class="actions special">
+										<li><a href="{% url 'posts_detail' pos.id %}" class="button">Далее</a></li>
+									</ul>
+								</article>
+								{%endfor%}
+							</section>
 
 						<!-- Footer -->
 							<footer>
